@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+
+const generateGrid = (rows, columns, mapper) => {
+	return Array(rows).fill().map(() => Array(columns).fill().map(mapper));
+};
+
+const newTicTacToeGrid = () => generateGrid(3, 3, () => null);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const grid = newTicTacToeGrid();
+	console.log(grid);
+
+	return (
+		<div className="App">
+			<div>Game</div>
+		</div>
+	);
 }
 
 export default App;
