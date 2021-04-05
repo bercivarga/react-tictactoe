@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { FaReact } from 'react-icons/fa';
 
 const generateGrid = (rows, columns, mapper) => {
 	return Array(rows).fill().map(() => Array(columns).fill().map(mapper));
@@ -96,7 +97,8 @@ function Grid({ handleClick, grid }) {
 					display: 'grid',
 					gridTemplateRows: `repeat(${grid.length}, 1fr)`,
 					gridTemplateColumns: `repeat(${grid[0].length}, 1fr)`,
-					gridGap: 2
+					gridGap: 2,
+					border: '2px solid black'
 				}}
 			>
 				{grid.map((row, rowIdx) =>
@@ -117,9 +119,19 @@ function Grid({ handleClick, grid }) {
 
 function Cell({ onClick, value }) {
 	return (
-		<div style={{ backgroundColor: '#fff', width: 200, height: 200 }}>
-			<button type="button" style={{ width: '200px', height: '200px' }} onClick={onClick}>
-				{value}
+		<div style={{ backgroundColor: '#fff', width: 150, height: 150 }}>
+			<button
+				type="button"
+				style={{
+					width: '150px',
+					height: '150px',
+					backgroundColor: 'transparent',
+					border: 'none',
+					cursor: 'pointer'
+				}}
+				onClick={onClick}
+			>
+				<span style={{ fontWeight: '700', fontSize: '48px' }}>{value}</span>
 			</button>
 		</div>
 	);
@@ -138,16 +150,42 @@ function App() {
 	};
 
 	return (
-		<div className="App" style={{ display: 'inline-block' }}>
-			<h1>React Tic Tac Toe</h1>
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<div>Next turn: {turn}</div>
-				<div>{status === 'success' ? `${turn} won!` : null}</div>
-				<button type="button" onClick={reset}>
-					Reset
-				</button>
+		<div
+			style={{
+				width: '100%',
+				height: '100vh',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center'
+			}}
+		>
+			<div style={{ display: 'inline-block', textAlign: 'center' }}>
+				<FaReact style={{ width: '64px', height: '64px' }} />
+				<h1 style={{ fontSize: '48px' }}>React Tic Tac Toe</h1>
+				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+					<div>
+						Next turn: <strong>{turn}</strong>
+					</div>
+					<div>
+						<strong>{status === 'success' ? `${turn} won! 🎉` : null}</strong>
+					</div>
+					<button
+						type="button"
+						onClick={reset}
+						style={{
+							border: 'none',
+							backgroundColor: 'black',
+							color: 'white',
+							fontSize: '18px',
+							cursor: 'pointer'
+						}}
+					>
+						Reset
+					</button>
+				</div>
+				<Grid grid={grid} handleClick={handleClick} />
+				<p>* The game automatically restarts in case of a draw.</p>
 			</div>
-			<Grid grid={grid} handleClick={handleClick} />
 		</div>
 	);
 }
